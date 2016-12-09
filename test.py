@@ -1,14 +1,18 @@
 from turtle import *
+def clear_move(action):
+    up()
+    action()
+    down()
 border = 15
+letter_size = 30
 size = [800, 600]
 mideana =[0, 0] 
-mideana[0] = - size[0] / 2 + border
-mideana[1] = size[1] / 2 - border
+mideana[0] = - size[0] / 2 + border 
+mideana[1] = size[1] / 2 - border - letter_size
 setup(*size)
 bgcolor("lightgreen")
 color("blue")
-goto(mideana)
-
+clear_move(lambda: goto(mideana))
 commands_list = {
     "f": fd,
     "b": bk,
@@ -42,14 +46,18 @@ letters = generete_dictionary("dict.txt")
 
 
 
-word = "Cbbccbbch"
+word = "ba"
 def interprin_word (word):
     for letter in word.lower():
         if letter not in letters.keys():
             continue
+        turtle_position = list(position())
         interpreter(letters[letter])
+        turtle_position[0] += 30
+        goto(turtle_position)
 
-#interprin_word(word)
+
+interprin_word(word)
 
 
 # interpreter(letters["b"])
