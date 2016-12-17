@@ -1,59 +1,10 @@
 from turtle import *
-border = 20
-letter_size = 100
-letter_speceing = 20
-size = [800, 600]
-mideana =[0, 0] 
-mideana[0] = - size[0] / 2 + border 
-mideana[1] = size[1] / 2 - border - letter_size
-setup(*size)
-bgcolor("lightgray")
-color("blue")
-width(4)
-
-vector_up = (0, 100)
-vector_down = (0, -100)
-vector_left = (-100,0)
-vector_right = (100,0)
+from settings import *
+from bisness import *
 
 
-def pure_turtle(action):
-    up()
-    action()
-    down()
-
-def pure_goto(point):
-    pure_turtle(lambda: goto(point))
 
 pure_goto(mideana)
-
-def center_dot(size):
-    position = pos()
-    pure_goto(position + (letter_size / 2, letter_size / 2))
-    dot(size)
-    pure_goto(position)
-
-def down_line():
-    position = pos()
-    goto(pos() + (vector_right))
-    pure_goto(position)
-
-def upper_line():
-    position = pos()
-    pure_goto(pos() + vector_up)
-    goto(pos() + vector_right)
-    pure_goto(position) 
-    
-def left_line():
-    position = pos()
-    goto (pos() + vector_up)
-    pure_goto(position)
-
-def right_line():
-    position = pos()
-    pure_goto (pos() + vector_right)
-    goto (pos() + vector_up)
-    pure_goto(position)
 
 def letter_K():
     position = pos()
@@ -210,14 +161,26 @@ def exec_letter(letter):
         globals()[current_funk]()
 
 
-def encript(text):
+def next_line():
+    mideana[1]-=letter_size+letter_speceing
+    pure_goto(mideana)
+
+def encript(text,mideana):
     text = text.upper()
     for letter in text:
-        exec_letter(letter)
         position = pos()
+        
+        if pos()[0]+letter_size > size[0]/2:
+            next_line()
+            position = pos()
+        exec_letter(letter) 
         pure_goto(position + vector_right + (letter_speceing, 0))
 
-encript("MISha")
+
+
+
+# next_line()
+encript("misha cool",mideana)
 
 
 input()
